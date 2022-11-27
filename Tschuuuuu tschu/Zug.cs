@@ -61,7 +61,7 @@ namespace Tschuuuuu_tschu
 
         public int DisplayVerdienst()
         {
-            int verdienst;
+            int verdienst = 0;
             int b = 0;
             foreach(Bistrowagon bw in wagons)
             {

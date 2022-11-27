@@ -8,6 +8,7 @@ namespace Tschuuuuu_tschu
     class Wagon: Zugteile
     {
         protected int gewicht;
+        private int testc;
 
         public void SetWeight(int _weight)
         {
