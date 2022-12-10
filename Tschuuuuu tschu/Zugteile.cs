@@ -5,26 +5,21 @@ using System.Text;
 namespace Tschuuuuu_tschu
 {
     [Serializable]
-    class Zugteile
+    public class Zugteile
     {
         protected int preis;
         protected string name;
 
-        public void SetPreis(int _preis)
+        public int Preis { get { return preis; } set { preis= value; } }
+        public string Name { get { return name; } set { name= value; } }
+
+        public Zugteile()
         {
-            preis = _preis;
+
         }
-        public int GetPreis()
+        public virtual void ShowAllStats()
         {
-            return preis;
-        }
-        public void SetName(string _name)
-        {
-            name = _name;
-        }
-        public string GetName()
-        {
-            return name;
+
         }
     }
 

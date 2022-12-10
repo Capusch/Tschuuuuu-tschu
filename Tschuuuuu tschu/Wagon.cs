@@ -5,23 +5,24 @@ using System.Text;
 namespace Tschuuuuu_tschu
 {
     [Serializable]
-    class Wagon: Zugteile
+    public class Wagon: Zugteile
     {
         protected int gewicht;
 
-        public void SetWeight(int _weight)
+        public Wagon()
         {
-            gewicht = _weight;
+
         }
-        public int GetWeight()
-        {
-            return gewicht;
-        }
+
     }
     [Serializable]
-    class Güterwagon : Wagon
+    public class Güterwagon : Wagon
     {
         private string güter;
+        public Güterwagon()
+        {
+
+        }
 
         public void SetGüter(string _g)
         {
@@ -34,7 +35,7 @@ namespace Tschuuuuu_tschu
     }
 
     [Serializable]
-    class Personwagen : Wagon
+    public class Personwagen : Wagon
     {
         private int maxperson;
         private int personanzahl;
@@ -57,7 +58,7 @@ namespace Tschuuuuu_tschu
         }
     }
     [Serializable]
-    class Bistrowagon : Wagon
+    public class Bistrowagon : Wagon
     {
         private int bonus;
 

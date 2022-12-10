@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Spieler xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Spieler_Depot>
+    <Züge>
+      <Zug>
+        <Name>Test</Name>
+        <Zug_Wagons />
+        <Zug_Motor>
+          <Preis>0</Preis>
+          <Name>megamotor</Name>
+          <Leistung>100</Leistung>
+        </Zug_Motor>
+        <Amfahren>false</Amfahren>
+        <Fahrzeit>0</Fahrzeit>
+      </Zug>
+    </Züge>
+  </Spieler_Depot>
+  <Münzen>0</Münzen>
+  <Spieler_Zugteile>
+    <Zugteile xsi:type="Zugtyp">
+      <Preis>0</Preis>
+      <Name>Dampflock</Name>
+    </Zugteile>
+    <Zugteile xsi:type="Motor">
+      <Preis>0</Preis>
+      <Name>megamotor</Name>
+      <Leistung>100</Leistung>
+    </Zugteile>
+  </Spieler_Zugteile>
+</Spieler>

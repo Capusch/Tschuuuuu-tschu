@@ -5,13 +5,28 @@ using System.Text;
 namespace Tschuuuuu_tschu
 {
     [Serializable]
-    class Zug
+    public class Zug
     {
+        private string name;
         private Motor motor;
         private List<Wagon> wagons = new List<Wagon>(); 
         private Zugtyp zugtyp;
         private DateTime timer;
+        private bool amfahren;
+        private int fahrzeit;
 
+        public string Name { get { return name; } set { name = value; } }
+        public List<Wagon> Zug_Wagons { get { return wagons; } set { wagons = value; } }
+        public Motor Zug_Motor { get { return motor; } set { motor= value; } }
+        public Zugtyp Zug_Zugtyp { get { return zugtyp; } set { zugtyp = value; } }
+        public bool Amfahren  { get { return amfahren; } set { amfahren= value; } }
+        public int Fahrzeit{ get { return fahrzeit; } set { fahrzeit= value; } }
+
+
+        public Zug()
+        {
+
+        }
         public Zug( Motor _motor, Zugtyp _zugtyp)
         {
             motor = _motor;
@@ -46,7 +61,7 @@ namespace Tschuuuuu_tschu
             int[] gesamtweight= new int[y];
             foreach(Wagon wagon in wagons)
             {
-                gesamtweight[y] = wagon.GetWeight();
+                ///gesamtweight[y] = wagon.GetWeight();
                 gw += gesamtweight[y];
                 y++;
             }
@@ -68,7 +83,7 @@ namespace Tschuuuuu_tschu
                 b = bw.GetBonus();
             }
             
-            return verdienst ;
+            return /*verdienst*/ 0 ;
         }
     }
 }

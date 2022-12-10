@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Tschuuuuu_tschu
 {
@@ -6,7 +7,10 @@ namespace Tschuuuuu_tschu
     {
         static void Main(string[] args)
         {
+    
             
+            var TTSimulator = new Simulator();
+            TTSimulator.Start();
         }
     }
 }
