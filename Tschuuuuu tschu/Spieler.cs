@@ -292,9 +292,122 @@ namespace Tschuuuuu_tschu
             }
             return GesuchteTeile; 
         }
+        private Zug ZugErstellen(List<Zugteile> _zugteile)
+        {
+            var GesuchteTeile = new List<Zugteile>();
+            GesuchteTeile = TeilSuche("Motor");
+            var GesuchteMotor = new List<Motor>();
+            var MotorenNamen = new string[GesuchteTeile.Count];
+            int i = 0;
+            foreach (Zugteile z in GesuchteTeile)
+            {
+                GesuchteMotor.Add((Motor)z);
+                MotorenNamen[i] = z.Name;
+                i++;
+            }
+
+            var GesuchteTeile1 = new List<Zugteile>();
+            GesuchteTeile1 = TeilSuche("Zugtyp");
+            var GesuchteZugtyp = new List<Zugtyp>();
+            var Zugtypnamen = new string[GesuchteTeile1.Count];
+            int i1 = 0;
+            foreach (Zugteile z in GesuchteTeile1)
+            {
+                GesuchteZugtyp.Add((Zugtyp)z);
+                Zugtypnamen[i1] = z.Name;
+                i1++;
+            }
+
+            var GesuchteTeile2 = new List<Zugteile>();
+            GesuchteTeile2= TeilSuche("Wagon");
+            var GesuchteWagons = new List<Wagon>();
+            var WagonNamen = new string[GesuchteTeile2.Count];
+            int i2 = 0;
+            foreach (Zugteile z in GesuchteTeile2)
+            {
+                GesuchteWagons.Add((Wagon)z);
+                WagonNamen[i2] = z.Name;
+                i2++;
+            }
+
+            if(GesuchteWagons.Count == 0 ||GesuchteZugtyp.Count == 0 ||GesuchteMotor.Count == 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Du hast nicht genügend Teile");
+                Thread.Sleep(2000);
+                return null; 
+            }
+            int j = 0,j1 = 0,j2 = 0;
+            var NeuerZug = new Zug();
+            Console.Clear();
+            Console.WriteLine("Wie willst du deinen Zug nennen?");
+            NeuerZug.Name = Console.ReadLine();
+            var ZugtypMenü = new Menü("Welchen Zugtyp willst du haben?", Zugtypnamen);
+            j = ZugtypMenü.Run();
+            NeuerZug.Zug_Zugtyp = GesuchteZugtyp[j];
+            var MotorMenü= new Menü("Welchen Motor willst du haben?", MotorenNamen);
+            j1 = MotorMenü.Run();
+            NeuerZug.Zug_Motor = GesuchteMotor[j1];
+            var WagonMenü = new Menü("Welchen Wagon willst du hinzufügen?", WagonNamen);
+            j2 = WagonMenü.Run();
+            NeuerZug.Zug_Wagons.Add(GesuchteWagons[j2]);
+            Spieler_Zugteile.RemoveAt(SpezifischeTeilsuche(GesuchteZugtyp[j]));
+            Spieler_Zugteile.RemoveAt(SpezifischeTeilsuche(GesuchteMotor[j1]));
+            Spieler_Zugteile.RemoveAt(SpezifischeTeilsuche(GesuchteWagons[j2]));
+
+            Spieler_Depot.AddZug(NeuerZug);
+
+            return null ;
+        }
+        private List<Bahnhof[]> Checkzüge(List<Bahnhof[]> Karte)
+        {
+            string[] Splittedtime = DateTime.Now.ToString("h:mm").Split(":");
+            int h = Convert.ToInt32(Splittedtime[0]);
+            int mm = Convert.ToInt32(Splittedtime[1]);
+            foreach (Zug z in depot.Züge)
+            {
+                int mmZug = 0, hZug = 0;
+                if(z.Fahrzeit != "0")
+                {
+                    string[] SplittedtimeZug = z.Fahrzeit.Split(":");
+                    hZug = Convert.ToInt32(SplittedtimeZug[0]);
+                    mmZug = Convert.ToInt32(SplittedtimeZug[1]);
+                }
+                if (z.Amfahren && (mmZug <= mm || hZug < h))
+                {
+                    foreach (Bahnhof[] b in Karte)
+                    {
+                        foreach (Bahnhof _bh in b)
+                        {
+                            foreach (Gleis g in _bh.BahnhofGleise)
+                            {
+                                if (!g.Befahren)
+                                {
+
+                                }
+                                else if (z == g.GleisZug)
+                                {
+                                   int a = z.DisplayVerdienst();
+                                    münzen = münzen + z.DisplayVerdienst();
+                                    g.GleisZug = null;
+                                    g.Befahren = false;
+                                    z.Amfahren = false;
+                                    z.Fahrzeit = "0";
+
+                                    Console.WriteLine(münzen);
+                                    Console.ReadKey();
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            return Karte;
+        }
 
         //Methoden public
-        public int DisplayDepot()
+        public List<Bahnhof[]> DisplayDepot(List<Bahnhof[]> Karte)
         {
             Console.Clear();
             //Checkt, ob Depot Leer ist
@@ -302,26 +415,34 @@ namespace Tschuuuuu_tschu
             {
                 Console.WriteLine("Dein Depot ist Leer!");
                 Thread.Sleep(2000);
-                return 0;
+                return Karte;
             }
             //erzeugt string[] Zug.Name für Menü_Depot
-            var MenüLen = new string[Spieler_Depot.Züge.Count + 1];
+            var MenüLen = new string[Spieler_Depot.Züge.Count + 2];
            for(int i = 0;i < Spieler_Depot.Züge.Count; i++)
             {
                 MenüLen[i] = Spieler_Depot.Züge[i].Name;
             }
-            MenüLen[Spieler_Depot.Züge.Count] = "Exit";
+            MenüLen[Spieler_Depot.Züge.Count] = "Zug Erstellen";
+            MenüLen[Spieler_Depot.Züge.Count+1] = "Exit";
             var DepotMenü = new Menü("Wähle den Zug aus, welchen du Konfigurieren / Ansehen willst.",MenüLen);
             int AuswahlZug = 0;
             do
             {
+                Karte = Checkzüge(Karte);
                 AuswahlZug = DepotMenü.Run();                
                 int A2 = 0;
-                if (AuswahlZug != Spieler_Depot.Züge.Count) {
+                if (AuswahlZug < Spieler_Depot.Züge.Count) {
                     do
                     {
+                        Karte = Checkzüge(Karte);
+                        string fh = "Fahren";
+                        if (Spieler_Depot.Züge[AuswahlZug].Amfahren)
+                        {
+                            fh = fh + "/nicht im Depot";
+                        }
 
-                        var ZugAuswahl = new string[] { "Ansehen", "Konfigurieren", "Exit" };
+                        var ZugAuswahl = new string[] { "Ansehen", "Konfigurieren",fh,"Exit" };
                         var ZugMenü = new Menü(Spieler_Depot.Züge[AuswahlZug].Name, ZugAuswahl);
                         A2 = ZugMenü.Run();
                         switch (A2)
@@ -335,6 +456,8 @@ namespace Tschuuuuu_tschu
                                 if (Spieler_Depot.Züge[AuswahlZug].Amfahren)
                                 {
                                     Console.WriteLine("Fahrzeit: {0}", Spieler_Depot.Züge[AuswahlZug].Fahrzeit);
+
+                                    Console.WriteLine("Angefahrender Bahnhof: {0}", Spieler_Depot.Züge[AuswahlZug].NameBahnhoffahrt);
                                 }
                                 else
                                 {
@@ -345,19 +468,79 @@ namespace Tschuuuuu_tschu
                             case 1:
                                 Spieler_Depot.Züge[AuswahlZug] = ZugKonfigurieren(Spieler_Depot.Züge[AuswahlZug]);
                                 break;
+                            case 2:
+                                if (Spieler_Depot.Züge[AuswahlZug].Amfahren)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Zug ist schon am Fahren!");
+                                    Thread.Sleep(2000);
+
+                                }
+                                else
+                                {
+                                    string[] stringBahnhöfe = new string[8];
+                                    int i = 0;
+                                    foreach (Bahnhof[] _b in Karte)
+                                    {
+                                       foreach(Bahnhof b in _b)
+                                        {
+                                            if (b.Name != null)
+                                            {
+                                                stringBahnhöfe[i] = b.Name;
+                                            }
+                                            i++;
+                                        }
+                                    }
+                                    var BahnhofMenü = new Menü("Zu welchem Bahnhof willst du fahren?", stringBahnhöfe);
+                                    int j = BahnhofMenü.Run();
+                                    if (j != 0)
+                                    {
+                                        int k = j / 4,z = j-k*4;
+                                        int Zugindikator = 0, Rundenindikator = 0;
+                                        foreach(Gleis g in Karte[k][z].BahnhofGleise)
+                                        {
+                                            
+                                            if (Zugindikator == 1)
+                                            {
+                                                
+                                            }
+                                            else if(!g.Befahren && Spieler_Depot.Züge[AuswahlZug].Zug_Zugtyp.Zugtype == g.ErlaubterZugtyp)
+                                            {
+                                                g.GleisZug = Spieler_Depot.Züge[AuswahlZug];
+                                                Zugindikator++;
+                                                int Fahrzeit = (k + z) * 10 /2; 
+                                                Spieler_Depot.Züge[AuswahlZug].Fahren(Karte[k][z],Fahrzeit);
+                                                g.Befahren = true;
+                                            }
+                                            else if (Rundenindikator == Karte[k][z].BahnhofGleise.Count-1 && Zugindikator == 0)
+                                            {
+                                                Console.WriteLine("Bahnhof ist nicht Befahrbar!");
+                                                Thread.Sleep(2000);
+                                            }
+                                            Rundenindikator++;
+                                        }
+                                        
+                                    }
+                                }
+                                break;
                         }
-                    } while (A2 != 2);
+                    } while (A2 != 3);
                     {
 
                     }
                 }
+                else if(AuswahlZug == Spieler_Depot.Züge.Count)
+                {
+                    ZugErstellen(Spieler_Zugteile);
+                    return Karte;
+                }
                 
 
-            } while (AuswahlZug != Spieler_Depot.Züge.Count);
+            } while (AuswahlZug < Spieler_Depot.Züge.Count );
             {
                 
             }
-            return 0;
+            return Karte;
         }
         public void DisplayInventar()
         {
@@ -392,22 +575,86 @@ namespace Tschuuuuu_tschu
                         }
                         break;
                     case 1:
+                        var GesuchteTeile = new List<Zugteile>();
+                        GesuchteTeile = TeilSuche("Motor");
+                        var GesuchteMotor = new List<Motor>();
+                        var MotorenNamen = new string[GesuchteTeile.Count + 1];
+                        MotorenNamen[GesuchteTeile.Count] = "Exit";
+                        i = 0;
+                        foreach (Zugteile z in GesuchteTeile)
+                        {
+                            GesuchteMotor.Add((Motor)z);
+                            MotorenNamen[i] = z.Name;
+                            i++;
+                        }
 
+                        var MotorMenü = new Menü("Alle Teile deines Inventar!", MotorenNamen);
+                        while (Auswahl1 != MotorenNamen.Length - 1)
+                        {
+                            Auswahl1 = MotorMenü.Run();
+                            if (Auswahl1 != MotorenNamen.Length - 1)
+                            {
+                                GesuchteMotor[Auswahl1].ShowAllStats();
+                                Console.ReadKey();
+                            }
+                        }
                         break;
                     case 2:
+                        GesuchteTeile = new List<Zugteile>();
+                        GesuchteTeile = TeilSuche("Wagon");
+                        var GesuchteWagons = new List<Wagon>();
+                        var WagonNamen = new string[GesuchteTeile.Count + 1];
+                        WagonNamen[GesuchteTeile.Count] = "Exit";
+                        i = 0;
+                        foreach (Zugteile z in GesuchteTeile)
+                        {
+                            GesuchteWagons.Add((Wagon)z);
+                            WagonNamen[i] = z.Name;
+                            i++;
+                        }
 
+                        var WagonMenü = new Menü("Alle Teile deines Inventar!", WagonNamen);
+                        while (Auswahl1 != WagonNamen.Length - 1)
+                        {
+                            Auswahl1 = WagonMenü.Run();
+                            if (Auswahl1 != WagonNamen.Length - 1)
+                            {
+                                GesuchteWagons[Auswahl1].ShowAllStats();
+                                Console.ReadKey();
+                            }
+                        }
                         break;
                     case 3:
+                        GesuchteTeile = new List<Zugteile>();
+                        GesuchteTeile = TeilSuche("Zugtyp");
+                        var GesuchteZugtyp = new List<Zugtyp>();
+                        var ZugtypNamen = new string[GesuchteTeile.Count + 1];
+                        ZugtypNamen[GesuchteTeile.Count] = "Exit";
+                        i = 0;
+                        foreach (Zugteile z in GesuchteTeile)
+                        {
+                            GesuchteZugtyp.Add((Zugtyp)z);
+                            ZugtypNamen[i] = z.Name;
+                            i++;
+                        }
 
+                        var ZugtypMenü = new Menü("Alle Teile deines Inventar!", ZugtypNamen);
+                        while (Auswahl1 != ZugtypNamen.Length - 1)
+                        {
+                            Auswahl1 = ZugtypMenü.Run();
+                            if (Auswahl1 != ZugtypNamen.Length - 1)
+                            {
+                                GesuchteZugtyp[Auswahl1].ShowAllStats();
+                                Console.ReadKey();
+                            }
+                        }
                         break;
                 }
             }
         }
-        public Zug ZugErstellen(List<Zugteile>_zugteile )
-        {
 
-            return null;
-        }
+        
+
 
 
     }

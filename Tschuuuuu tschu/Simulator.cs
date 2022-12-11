@@ -8,25 +8,71 @@ namespace Tschuuuuu_tschu
 {
     class Simulator
     {
+        private Spieler Spieler1;
+        private List<Bahnhof[]> karte;
+
+        //public List<Bahnhof[]> Karte { get { return karte; } }
+
+        public void BahnhofKarte()
+        {
+            var stringa1 = new string[] { "Dampf", "Diesel", "Elektro" };
+            var B_Mörfelden = new Bahnhof(stringa1,"Mörfelden-Bahnhof");
+
+            var stringa2 = new string[] { "Dampf", "Diesel",};
+            var B_Evren= new Bahnhof(stringa2, "EvrenDalles-Bahnhof");
+
+            var stringa3 = new string[] { "Diesel"};
+            var B_Tizian = new Bahnhof(stringa3, "TizianPlatz-Bahnhog");
+            var snull = new string[] { "a" };
+            var BahnhofNull = new Bahnhof(snull, "Exit");
+
+            var Karte0 = new Bahnhof[] {BahnhofNull,B_Mörfelden,B_Evren,B_Tizian };
+
+            var stringb1 = new string[] { "Dampf", "Diesel", "Elektro","Diesel","Elektro" };
+            var B_GroßGerau = new Bahnhof(stringb1, "Groß-Gerau-Dornberg");
+
+            var stringb2 = new string[] { "Dampf", "Dampf", "Dampf" };
+            var B_BSGG = new Bahnhof(stringb2, "BSGG-Bahnhof");
+
+            var stringb3 = new string[] { "Diesel", "Elektro" };
+            var B_Marktplatz = new Bahnhof(stringb3, "Marktplatz-Bahnhof");
+            
+            var stringb4= new string[] { "Elektro" };
+            var B_PenenrWeg = new Bahnhof(stringb4, "PennerWeg-Bahnhof");
+            
+            var Karte1= new Bahnhof[] { B_GroßGerau, B_BSGG, B_Marktplatz, B_PenenrWeg};
+
+            var Liste = new List<Bahnhof[]>();
+            Liste.Add(Karte0);
+            Liste.Add(Karte1);
+
+            karte = Liste;
+
+            
 
 
+
+        }
 
         public void Start()
         {
+            
+            Spieler1 = TestingSpieler();
+            SavePlayer(Spieler1);
             //Laden des Spielstandes
-            var Spieler1 = new Spieler();
+            Spieler1 = new Spieler();
             if (!File.Exists(@"..\..\..\Spieler.xml")){
                 File.Create(@"..\..\..\Spieler.xml");
-                var s = new Spieler(1);
-                Spieler1 = s;
-                SavePlayer(s);
+                Spieler1 = new Spieler(1);
+                SavePlayer(Spieler1);
                 Console.ReadKey();
             }
             else {                
                 Spieler1 = (Spieler)LoadPlayer();
                 Spieler1 = TestingSpieler();
+
             }
-            
+            ;
 
             //Hauptmenü
             var StEn = new string[] { "Starten", "Beenden" };
@@ -57,7 +103,7 @@ namespace Tschuuuuu_tschu
                 switch (Spielen)
                 {
                     case 0:
-                        _spieler.DisplayDepot();
+                        karte = _spieler.DisplayDepot(karte);
                         break;
                     case 1:
                         _spieler.DisplayInventar();
@@ -81,7 +127,7 @@ namespace Tschuuuuu_tschu
             return o;
         }
 
-        public static void SavePlayer(Spieler players)
+        public void SavePlayer(Spieler players)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Spieler));
             using (StreamWriter writer = new StreamWriter(@"..\..\..\Spieler.xml"))
@@ -104,6 +150,7 @@ namespace Tschuuuuu_tschu
             var zt1 = new Zugtyp();
             zt1.Preis = 200;
             zt1.Name = "Dampflock";
+            zt1.Zugtype = "Dampf";
             var zt2 = new Zugtyp();
             zt2.Preis = 500;
             zt2.Name = "Elektrolock";
@@ -116,11 +163,13 @@ namespace Tschuuuuu_tschu
             var Bw = new Bistrowagon();
             Bw.Name = "Bistro";
             Bw.Preis = 22;
+            Bw.Bonus = 50;
             var Zug1 = new Zug();
             Zug1.Zug_Motor = m;
             Zug1.Zug_Zugtyp = zt1;
             Zug1.Zug_Wagons.Add(Gw);
             Zug1.Zug_Wagons.Add(Bw);
+            Zug1.Fahrzeit = "0";
             Zug1.Name = "Megabahn";
             var Zug2 = new Zug();
             Zug2.Zug_Motor = m2;
@@ -128,6 +177,7 @@ namespace Tschuuuuu_tschu
             Zug2.Zug_Wagons.Add(Gw);
             Zug2.Zug_Wagons.Add(Pw);
             Zug2.Name = "Superbahn";
+            Zug2.Fahrzeit = "0";
             var Spieler1 = new Spieler(1);
             
             Spieler1.Spieler_Depot.AddZug(Zug1);
@@ -136,9 +186,9 @@ namespace Tschuuuuu_tschu
             Spieler1.Spieler_Zugteile.Add(m2);
             Spieler1.Spieler_Zugteile.Add(zt1);
             Spieler1.Spieler_Zugteile.Add(zt2);
-            Spieler1.Spieler_Zugteile.Add(Pw);
-            Spieler1.Spieler_Zugteile.Add(Gw);
-            Spieler1.Spieler_Zugteile.Add(Bw);
+            //Spieler1.Spieler_Zugteile.Add(Pw);
+            //Spieler1.Spieler_Zugteile.Add(Gw);
+            //Spieler1.Spieler_Zugteile.Add(Bw);
 
             return Spieler1;
         }

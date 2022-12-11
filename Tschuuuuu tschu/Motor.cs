@@ -7,19 +7,18 @@ namespace Tschuuuuu_tschu
     [Serializable]
     public class Motor : Zugteile 
     {
-        private string typ;
         private int leistung;
         private int geschwindigkeit;
 
         public int Leistung { get { return leistung; } set { leistung= value; } }
+        public int Geschwindigkeit{ get { return geschwindigkeit;} set { geschwindigkeit= value; } }
 
         public override void ShowAllStats()
         {
-            Console.WriteLine(Name);
-            Console.WriteLine(Preis);
-            Console.WriteLine(typ);
-            Console.WriteLine(leistung);
-            Console.WriteLine(geschwindigkeit);
+            Console.WriteLine("Name: {0}",Name);
+            Console.WriteLine("Preis: {0}", Preis);
+            Console.WriteLine("Leistung: {0}PS", Leistung);
+            Console.WriteLine("Geschwindigkeit: {0}", Geschwindigkeit);
         }
     }
 }

@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Tschuuuuu_tschu
 {
+    [XmlInclude(typeof(Bistrowagon))]
+    [XmlInclude(typeof(Güterwagon))]
+    [XmlInclude(typeof(Personwagen))]
     [Serializable]
-    public class Wagon: Zugteile
+    public class Wagon : Zugteile
     {
-        protected int gewicht;
+        //protected int gewicht;
 
         public Wagon()
         {
@@ -15,6 +19,8 @@ namespace Tschuuuuu_tschu
         }
 
     }
+    
+   
     [Serializable]
     public class Güterwagon : Wagon
     {
@@ -23,15 +29,15 @@ namespace Tschuuuuu_tschu
         {
 
         }
+        public string Güter { get { return güter; } set { güter = value; } }
+        public override void ShowAllStats()
+        {
+            Console.WriteLine("Name: {0}", Name);
+            Console.WriteLine("Preis: {0}", Preis);
+            Console.WriteLine("Güter: {0}", Güter);
+            
+        }
 
-        public void SetGüter(string _g)
-        {
-            güter = _g;
-        }
-        public string GetGüter() 
-        {
-            return güter;
-        }
     }
 
     [Serializable]
@@ -40,35 +46,30 @@ namespace Tschuuuuu_tschu
         private int maxperson;
         private int personanzahl;
 
-        public void SetMaxP(int _maxp)
+        public int MaxPersonen { get { return maxperson; } set { maxperson = value; } }
+        public int Personenanzahl { get { return personanzahl; } set { personanzahl = value; } }
+
+
+        public override void ShowAllStats()
         {
-            maxperson = _maxp;
+            Console.WriteLine("Name: {0}", Name);
+            Console.WriteLine("Preis: {0}", Preis);
+            Console.WriteLine("MaxPersonen: {0}",MaxPersonen);
         }
-        public void SetPanzahl(int _Panzahl)
-        {
-            personanzahl = _Panzahl;
-        }
-        public int GetMaxP()
-        {
-            return maxperson;
-        }
-        public int GetPanzahl()
-        {
-            return personanzahl;
-        }
+        
     }
     [Serializable]
     public class Bistrowagon : Wagon
     {
         private int bonus;
 
-        public void SetBonus(int _bonus)
+        public int Bonus { get { return bonus; } set { bonus= value; } }
+
+        public override void ShowAllStats()
         {
-            bonus = _bonus;
-        }
-        public int GetBonus()
-        {
-            return bonus;
+            Console.WriteLine("Name: {0}", Name);
+            Console.WriteLine("Preis: {0}", Preis);
+            Console.WriteLine("BistroBonus: {0}%", Bonus);
         }
     }
 }

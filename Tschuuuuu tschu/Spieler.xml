@@ -3,13 +3,56 @@
   <Spieler_Depot>
     <Züge>
       <Zug>
-        <Name>Test</Name>
-        <Zug_Wagons />
+        <Name>Megabahn</Name>
+        <Zug_Wagons>
+          <Wagon xsi:type="Güterwagon">
+            <Preis>100</Preis>
+            <Name>Kohlewagon</Name>
+          </Wagon>
+          <Wagon xsi:type="Bistrowagon">
+            <Preis>22</Preis>
+            <Name>Bistro</Name>
+            <Bonus>50</Bonus>
+          </Wagon>
+        </Zug_Wagons>
         <Zug_Motor>
-          <Preis>0</Preis>
-          <Name>megamotor</Name>
+          <Preis>200</Preis>
+          <Name>V6</Name>
           <Leistung>100</Leistung>
+          <Geschwindigkeit>0</Geschwindigkeit>
         </Zug_Motor>
+        <Zug_Zugtyp>
+          <Preis>200</Preis>
+          <Name>Dampflock</Name>
+          <Zugtype>Dampf</Zugtype>
+        </Zug_Zugtyp>
+        <Amfahren>false</Amfahren>
+        <Fahrzeit>0</Fahrzeit>
+      </Zug>
+      <Zug>
+        <Name>Superbahn</Name>
+        <Zug_Wagons>
+          <Wagon xsi:type="Güterwagon">
+            <Preis>100</Preis>
+            <Name>Kohlewagon</Name>
+          </Wagon>
+          <Wagon xsi:type="Personwagen">
+            <Preis>2</Preis>
+            <Name>Persona</Name>
+            <MaxPersonen>0</MaxPersonen>
+            <Personenanzahl>0</Personenanzahl>
+          </Wagon>
+        </Zug_Wagons>
+        <Zug_Motor>
+          <Preis>300</Preis>
+          <Name>V8</Name>
+          <Leistung>300</Leistung>
+          <Geschwindigkeit>0</Geschwindigkeit>
+        </Zug_Motor>
+        <Zug_Zugtyp>
+          <Preis>500</Preis>
+          <Name>Elektrolock</Name>
+        </Zug_Zugtyp>
         <Amfahren>false</Amfahren>
         <Fahrzeit>0</Fahrzeit>
       </Zug>
@@ -17,14 +60,26 @@
   </Spieler_Depot>
   <Münzen>0</Münzen>
   <Spieler_Zugteile>
-    <Zugteile xsi:type="Zugtyp">
-      <Preis>0</Preis>
-      <Name>Dampflock</Name>
+    <Zugteile xsi:type="Motor">
+      <Preis>200</Preis>
+      <Name>V6</Name>
+      <Leistung>100</Leistung>
+      <Geschwindigkeit>0</Geschwindigkeit>
     </Zugteile>
     <Zugteile xsi:type="Motor">
-      <Preis>0</Preis>
-      <Name>megamotor</Name>
-      <Leistung>100</Leistung>
+      <Preis>300</Preis>
+      <Name>V8</Name>
+      <Leistung>300</Leistung>
+      <Geschwindigkeit>0</Geschwindigkeit>
+    </Zugteile>
+    <Zugteile xsi:type="Zugtyp">
+      <Preis>200</Preis>
+      <Name>Dampflock</Name>
+      <Zugtype>Dampf</Zugtype>
+    </Zugteile>
+    <Zugteile xsi:type="Zugtyp">
+      <Preis>500</Preis>
+      <Name>Elektrolock</Name>
     </Zugteile>
   </Spieler_Zugteile>
 </Spieler>

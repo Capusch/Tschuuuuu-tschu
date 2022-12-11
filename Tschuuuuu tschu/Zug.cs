@@ -11,16 +11,17 @@ namespace Tschuuuuu_tschu
         private Motor motor;
         private List<Wagon> wagons = new List<Wagon>(); 
         private Zugtyp zugtyp;
-        private DateTime timer;
         private bool amfahren;
-        private int fahrzeit;
+        private string fahrzeit;
+        private string nameBahnhoffahrt;
 
         public string Name { get { return name; } set { name = value; } }
         public List<Wagon> Zug_Wagons { get { return wagons; } set { wagons = value; } }
         public Motor Zug_Motor { get { return motor; } set { motor= value; } }
         public Zugtyp Zug_Zugtyp { get { return zugtyp; } set { zugtyp = value; } }
         public bool Amfahren  { get { return amfahren; } set { amfahren= value; } }
-        public int Fahrzeit{ get { return fahrzeit; } set { fahrzeit= value; } }
+        public string Fahrzeit{ get { return fahrzeit; } set { fahrzeit= value; } }
+        public string NameBahnhoffahrt { get { return nameBahnhoffahrt; } set { nameBahnhoffahrt= value; } }
 
 
         public Zug()
@@ -38,7 +39,7 @@ namespace Tschuuuuu_tschu
             int[] count = new int[x];
             foreach (Personwagen pwagen in wagons)
             {
-                count[x]= pwagen.GetPanzahl();
+                count[x] = pwagen.Personenanzahl;
                 x++;
             }
             return count;
@@ -49,41 +50,80 @@ namespace Tschuuuuu_tschu
             string[] g = new string[i];
           foreach(Güterwagon gwagon in wagons)
             {
-                g[i] = gwagon.GetGüter();
+                g[i] = gwagon.Güter;
                 i++;
             }
             return g;
         }
-        public int DisplayWeight()
-        {
-            int y = 0;
-            int gw = 0;
-            int[] gesamtweight= new int[y];
-            foreach(Wagon wagon in wagons)
-            {
-                ///gesamtweight[y] = wagon.GetWeight();
-                gw += gesamtweight[y];
-                y++;
-            }
-            
-            Console.WriteLine(gw);
-            return gw;
-        }
-        public void AddWagon(Wagon _wagon)
-        {
-            wagons.Add(_wagon); 
-        }
 
         public int DisplayVerdienst()
         {
-            int verdienst;
-            int b = 0;
-            foreach(Bistrowagon bw in wagons)
-            {
-                b = bw.GetBonus();
-            }
+            string[] FahrzeitSplit = fahrzeit.Split(":");
             
-            return /*verdienst*/ 0 ;
+            Bistrowagon bw = new Bistrowagon();
+            var pw = new List<Personwagen>();
+            var gw = new List<Güterwagon>();
+            foreach (Wagon w in wagons)
+            {
+                if (w.GetType() == typeof(Bistrowagon))
+                {
+                    bw = (Bistrowagon)w;
+                }
+                else if (w.GetType() == typeof(Personwagen))
+                {
+                    pw.Add((Personwagen)w);
+                }
+                else if (w.GetType() == typeof(Güterwagon))
+                {
+                    gw.Add((Güterwagon)w);
+                }
+            }
+            int mp = 0;
+            foreach (Personwagen p in pw)
+            {
+                mp += p.MaxPersonen;
+            }
+            foreach (Güterwagon g in gw)
+            {
+                mp += 50;
+            }
+            mp = (mp * bw.Bonus)/ 100;
+            mp = (mp * Convert.ToInt32(FahrzeitSplit[2]) * 2) / 10; 
+            return mp;
+        }
+
+
+        public void Fahren(Bahnhof _b,int Fahrzeit)
+        {
+            nameBahnhoffahrt = _b.Name;
+            string Fahrtfertig;
+
+            string Date = DateTime.Now.ToString("h:mm");
+            Console.WriteLine(Date);
+            string[] date = Date.Split(":");
+            int a = Convert.ToInt32(date[1]);
+            int b = Convert.ToInt32(date[0]);
+            if (a + Fahrzeit >= 60)
+            {
+                a = (a + Fahrzeit) - 60;
+                b++;
+            }
+            else
+            {
+                a = a + Fahrzeit;
+            }
+            if (a < 10)
+            {
+                string string_a = "0" + Convert.ToString(a);
+                Fahrtfertig = Convert.ToString(b) + ":" + string_a;
+            }
+            else
+            {
+                Fahrtfertig = Convert.ToString(b) + ":" + Convert.ToString(a) + ":" + Convert.ToString(Fahrzeit);
+            }
+
+            fahrzeit = Fahrtfertig;
+            Amfahren = true;
         }
     }
 }
