@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Media;
+
 
 namespace Tschuuuuu_tschu
 {
@@ -338,7 +340,7 @@ namespace Tschuuuuu_tschu
                 return null; 
             }
             int j = 0,j1 = 0,j2 = 0;
-            var NeuerZug = new Zug();
+            var NeuerZug = new Zug(1);
             Console.Clear();
             Console.WriteLine("Wie willst du deinen Zug nennen?");
             NeuerZug.Name = Console.ReadLine();
@@ -511,6 +513,8 @@ namespace Tschuuuuu_tschu
                                                 int Fahrzeit = (k + z) * 10 /2; 
                                                 Spieler_Depot.Züge[AuswahlZug].Fahren(Karte[k][z],Fahrzeit);
                                                 g.Befahren = true;
+
+                                                
                                             }
                                             else if (Rundenindikator == Karte[k][z].BahnhofGleise.Count-1 && Zugindikator == 0)
                                             {

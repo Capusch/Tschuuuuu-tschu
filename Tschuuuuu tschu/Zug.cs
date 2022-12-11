@@ -28,10 +28,10 @@ namespace Tschuuuuu_tschu
         {
 
         }
-        public Zug( Motor _motor, Zugtyp _zugtyp)
+        public Zug( int i)
         {
-            motor = _motor;
-            zugtyp = _zugtyp;
+            
+            fahrzeit = "0";
         }
         public int[] DisplayPersonen() 
         {

@@ -93,7 +93,7 @@ namespace Tschuuuuu_tschu
         }
         private void SpielstandLaden(Spieler _spieler)
         {
-            var StEn = new string[] { "Depot", "Inventar","Shop","Exit" };
+            var StEn = new string[] { "Depot", "Inventar","Shop","Karte","Exit" };
             var SpielerHauptmenü = new Menü("Menü", StEn);
             int Spielen = 0;
             do
@@ -108,8 +108,60 @@ namespace Tschuuuuu_tschu
                     case 1:
                         _spieler.DisplayInventar();
                         break;
+                    case 2:
+
+                        break;
+                    case 3:
+                        var KartenNamen = new string[8];
+                        int i = 0;
+                        foreach(Bahnhof[] Bahnhöfe in karte)
+                        {
+                            
+                            foreach (Bahnhof b in Bahnhöfe)
+                            {
+                                KartenNamen[i] = b.Name;
+                                i++;
+                            }
+                        }
+                        var Kartenmenü = new Menü("Alle verfügbaren Bahnhöfe:", KartenNamen);
+                        int Auswahl = -1;
+                        while (Auswahl != 0)
+                        {
+                            Auswahl = Kartenmenü.Run();
+                            if (Auswahl ==0)
+                            {
+
+                            }
+                            else
+                            {
+                                
+                                int k = Auswahl / 4, z = Auswahl - k * 4;
+                                int j = 1;
+                                foreach (Gleis g in karte[k][z].BahnhofGleise)
+                                {
+                                    Console.WriteLine("Gleis {0}", j);
+                                    Console.WriteLine("Befahren: {0}", Convert.ToString(g.Befahren));
+                                    Console.WriteLine("erlaubter Zugtyp: {0}", g.ErlaubterZugtyp);
+                                    if (g.Befahren)
+                                    {
+                                        Console.WriteLine("Zug: {0}", g.GleisZug.Name);
+                                    }
+                                    j++;
+                                    Console.WriteLine();
+                                }
+                                Console.ReadKey();
+                            }
+                            
+                        }
+
+
+
+
+
+                        break;
+
                 }
-            } while (Spielen != 3);
+            } while (Spielen != 4);
             {
                 
             }
@@ -186,9 +238,9 @@ namespace Tschuuuuu_tschu
             Spieler1.Spieler_Zugteile.Add(m2);
             Spieler1.Spieler_Zugteile.Add(zt1);
             Spieler1.Spieler_Zugteile.Add(zt2);
-            //Spieler1.Spieler_Zugteile.Add(Pw);
-            //Spieler1.Spieler_Zugteile.Add(Gw);
-            //Spieler1.Spieler_Zugteile.Add(Bw);
+            Spieler1.Spieler_Zugteile.Add(Pw);
+            Spieler1.Spieler_Zugteile.Add(Gw);
+            Spieler1.Spieler_Zugteile.Add(Bw);
 
             return Spieler1;
         }

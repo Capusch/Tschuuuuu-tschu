@@ -81,5 +81,20 @@
       <Preis>500</Preis>
       <Name>Elektrolock</Name>
     </Zugteile>
+    <Zugteile xsi:type="Personwagen">
+      <Preis>2</Preis>
+      <Name>Persona</Name>
+      <MaxPersonen>0</MaxPersonen>
+      <Personenanzahl>0</Personenanzahl>
+    </Zugteile>
+    <Zugteile xsi:type="Güterwagon">
+      <Preis>100</Preis>
+      <Name>Kohlewagon</Name>
+    </Zugteile>
+    <Zugteile xsi:type="Bistrowagon">
+      <Preis>22</Preis>
+      <Name>Bistro</Name>
+      <Bonus>50</Bonus>
+    </Zugteile>
   </Spieler_Zugteile>
 </Spieler>
