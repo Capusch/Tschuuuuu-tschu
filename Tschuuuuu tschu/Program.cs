@@ -8,7 +8,7 @@ namespace Tschuuuuu_tschu
     {
         static void Main(string[] args)
         {
-            Console.ReadKey();
+            
             var TTSimulator = new Simulator();
             TTSimulator.BahnhofKarte();
             

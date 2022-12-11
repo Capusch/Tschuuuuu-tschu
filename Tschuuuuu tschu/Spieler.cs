@@ -387,7 +387,7 @@ namespace Tschuuuuu_tschu
                                 {
 
                                 }
-                                else if (z == g.GleisZug)
+                                else if (z.NameBahnhoffahrt == g.GleisZug.NameBahnhoffahrt &&z.Name == g.GleisZug.Name)
                                 {
                                    int a = z.DisplayVerdienst();
                                     münzen = münzen + z.DisplayVerdienst();
@@ -396,8 +396,7 @@ namespace Tschuuuuu_tschu
                                     z.Amfahren = false;
                                     z.Fahrzeit = "0";
 
-                                    Console.WriteLine(münzen);
-                                    Console.ReadKey();
+                                    
                                 }
                             }
                         }
@@ -444,8 +443,9 @@ namespace Tschuuuuu_tschu
                             fh = fh + "/nicht im Depot";
                         }
 
-                        var ZugAuswahl = new string[] { "Ansehen", "Konfigurieren",fh,"Exit" };
-                        var ZugMenü = new Menü(Spieler_Depot.Züge[AuswahlZug].Name, ZugAuswahl);
+                        string ZugMenüTitel = Spieler_Depot.Züge[AuswahlZug].Zug_Zugtyp.Sprite + Spieler_Depot.Züge[AuswahlZug].Name+"\nWas willst du tuen? \n";
+                        var ZugAuswahl = new string[] { "Ansehen", "Konfigurieren",fh,"Umbennen","Exit" };
+                        var ZugMenü = new Menü(ZugMenüTitel, ZugAuswahl);
                         A2 = ZugMenü.Run();
                         switch (A2)
                         {
@@ -468,14 +468,22 @@ namespace Tschuuuuu_tschu
                                 Console.ReadKey();
                                 break;
                             case 1:
-                                Spieler_Depot.Züge[AuswahlZug] = ZugKonfigurieren(Spieler_Depot.Züge[AuswahlZug]);
+                                if (!Spieler_Depot.Züge[AuswahlZug].Amfahren)
+                                {
+                                    Spieler_Depot.Züge[AuswahlZug] = ZugKonfigurieren(Spieler_Depot.Züge[AuswahlZug]);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Zug ist am Fahren. Du kannst nicht Konfigurieren!");
+                                    Console.ReadKey();
+                                }
+                                
                                 break;
                             case 2:
                                 if (Spieler_Depot.Züge[AuswahlZug].Amfahren)
                                 {
-                                    Console.Clear();
                                     Console.WriteLine("Zug ist schon am Fahren!");
-                                    Thread.Sleep(2000);
+                                    Console.ReadKey();
 
                                 }
                                 else
@@ -527,8 +535,22 @@ namespace Tschuuuuu_tschu
                                     }
                                 }
                                 break;
+                            case 3:
+                                if (!Spieler_Depot.Züge[AuswahlZug].Amfahren)
+                                {
+                                    Console.WriteLine("Wie willsr du den Zug Umbennen?");
+                                    Spieler_Depot.Züge[AuswahlZug].Name = Console.ReadLine();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Zug ist schon am Fahren!");
+                                    Console.ReadKey();
+                                }
+
+                               
+                                break;
                         }
-                    } while (A2 != 3);
+                    } while (A2 != 4);
                     {
 
                     }
