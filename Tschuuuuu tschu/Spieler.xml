@@ -36,8 +36,8 @@
    / (*)   \__/ ~~~ \__/  \__/   _=_   \__/  \__/ ~~~ \__/   (*) \
 </Sprite>
         </Zug_Zugtyp>
-        <Amfahren>true</Amfahren>
-        <Fahrzeit>10:15:5</Fahrzeit>
+        <Amfahren>false</Amfahren>
+        <Fahrzeit>0</Fahrzeit>
         <NameBahnhoffahrt>Mörfelden-Bahnhof</NameBahnhoffahrt>
       </Zug>
       <Zug>
@@ -77,9 +77,9 @@
  `-._____.`(_)`=`(_)\_7___7___7___7__7_.`(_)`=`(_)\_ /
 </Sprite>
         </Zug_Zugtyp>
-        <Amfahren>true</Amfahren>
-        <Fahrzeit>10:16:5</Fahrzeit>
-        <NameBahnhoffahrt>Mörfelden-Bahnhof</NameBahnhoffahrt>
+        <Amfahren>false</Amfahren>
+        <Fahrzeit>0</Fahrzeit>
+        <NameBahnhoffahrt>Groß-Gerau-Dornberg</NameBahnhoffahrt>
       </Zug>
       <Zug>
         <Name>Diesel</Name>
@@ -122,13 +122,13 @@
  _________-=\__/=--=\__/=--=\__/=-_____-=\__/=--=\__/=--=\__/=-______
 </Sprite>
         </Zug_Zugtyp>
-        <Amfahren>true</Amfahren>
-        <Fahrzeit>10:26:15</Fahrzeit>
-        <NameBahnhoffahrt>Marktplatz-Bahnhof</NameBahnhoffahrt>
+        <Amfahren>false</Amfahren>
+        <Fahrzeit>0</Fahrzeit>
+        <NameBahnhoffahrt>Mörfelden-Bahnhof</NameBahnhoffahrt>
       </Zug>
     </Züge>
   </Spieler_Depot>
-  <Münzen>50</Münzen>
+  <Münzen>225</Münzen>
   <Spieler_Zugteile>
     <Zugteile xsi:type="Motor">
       <Preis>200</Preis>

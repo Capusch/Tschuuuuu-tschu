@@ -217,7 +217,7 @@ namespace Tschuuuuu_tschu
             
 
         }
-        static object LoadPlayer()
+        private object LoadPlayer()
         {
             object o;
             XmlSerializer serializer = new XmlSerializer(typeof(Spieler));
@@ -228,7 +228,7 @@ namespace Tschuuuuu_tschu
             return o;
         }
 
-        public void SavePlayer(Spieler players)
+        private void SavePlayer(Spieler players)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Spieler));
             using (StreamWriter writer = new StreamWriter(@"..\..\..\Spieler.xml"))
