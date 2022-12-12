@@ -38,7 +38,6 @@
         </Zug_Zugtyp>
         <Amfahren>false</Amfahren>
         <Fahrzeit>0</Fahrzeit>
-        <NameBahnhoffahrt>Mörfelden-Bahnhof</NameBahnhoffahrt>
       </Zug>
       <Zug>
         <Name>Superbahn</Name>
@@ -79,38 +78,16 @@
         </Zug_Zugtyp>
         <Amfahren>false</Amfahren>
         <Fahrzeit>0</Fahrzeit>
-        <NameBahnhoffahrt>Groß-Gerau-Dornberg</NameBahnhoffahrt>
       </Zug>
-      <Zug>
-        <Name>Diesel</Name>
-        <Zug_Wagons>
-          <Wagon xsi:type="Güterwagon">
-            <Preis>100</Preis>
-            <Name>Kohlewagon</Name>
-          </Wagon>
-          <Wagon xsi:type="Bistrowagon">
-            <Preis>22</Preis>
-            <Name>Bistro</Name>
-            <Bonus>50</Bonus>
-          </Wagon>
-          <Wagon xsi:type="Personwagen">
-            <Preis>2</Preis>
-            <Name>Persona</Name>
-            <MaxPersonen>0</MaxPersonen>
-            <Personenanzahl>0</Personenanzahl>
-          </Wagon>
-        </Zug_Wagons>
-        <Zug_Motor>
-          <Preis>300</Preis>
-          <Name>V8</Name>
-          <Leistung>300</Leistung>
-          <Geschwindigkeit>0</Geschwindigkeit>
-        </Zug_Motor>
-        <Zug_Zugtyp>
-          <Preis>0</Preis>
-          <Name>Diesellock</Name>
-          <Zugtype>Diesel</Zugtype>
-          <Sprite>                                                        \  /
+    </Züge>
+  </Spieler_Depot>
+  <Münzen>100000</Münzen>
+  <Spieler_Zugteile>
+    <Zugteile xsi:type="Zugtyp">
+      <Preis>0</Preis>
+      <Name>Diesellock</Name>
+      <Zugtype>Diesel</Zugtype>
+      <Sprite>                                                        \  /
                   __                                     \/
      _   ---===##===---_________________________--------------  _
     [ ~~~=================###=###=###=###=###=================~~ ]
@@ -121,19 +98,17 @@
   /  /___/|#(__)=o########o=(__)#||___|#(__)=o#########o=(__)#|\___\
  _________-=\__/=--=\__/=--=\__/=-_____-=\__/=--=\__/=--=\__/=-______
 </Sprite>
-        </Zug_Zugtyp>
-        <Amfahren>false</Amfahren>
-        <Fahrzeit>0</Fahrzeit>
-        <NameBahnhoffahrt>Mörfelden-Bahnhof</NameBahnhoffahrt>
-      </Zug>
-    </Züge>
-  </Spieler_Depot>
-  <Münzen>225</Münzen>
-  <Spieler_Zugteile>
+    </Zugteile>
     <Zugteile xsi:type="Motor">
       <Preis>200</Preis>
       <Name>V6</Name>
       <Leistung>100</Leistung>
+      <Geschwindigkeit>0</Geschwindigkeit>
+    </Zugteile>
+    <Zugteile xsi:type="Motor">
+      <Preis>300</Preis>
+      <Name>V8</Name>
+      <Leistung>300</Leistung>
       <Geschwindigkeit>0</Geschwindigkeit>
     </Zugteile>
     <Zugteile xsi:type="Zugtyp">
@@ -167,6 +142,21 @@
 (_ &gt;        , -------.                     , -------.  |
  `-._____.`(_)`=`(_)\_7___7___7___7__7_.`(_)`=`(_)\_ /
 </Sprite>
+    </Zugteile>
+    <Zugteile xsi:type="Personwagen">
+      <Preis>2</Preis>
+      <Name>Persona</Name>
+      <MaxPersonen>0</MaxPersonen>
+      <Personenanzahl>0</Personenanzahl>
+    </Zugteile>
+    <Zugteile xsi:type="Güterwagon">
+      <Preis>100</Preis>
+      <Name>Kohlewagon</Name>
+    </Zugteile>
+    <Zugteile xsi:type="Bistrowagon">
+      <Preis>22</Preis>
+      <Name>Bistro</Name>
+      <Bonus>50</Bonus>
     </Zugteile>
   </Spieler_Zugteile>
 </Spieler>

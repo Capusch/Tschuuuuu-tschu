@@ -363,7 +363,7 @@ namespace Tschuuuuu_tschu
         }
         private List<Bahnhof[]> Checkzüge(List<Bahnhof[]> Karte)
         {
-            string[] Splittedtime = DateTime.Now.ToString("h:mm").Split(":");
+            string[] Splittedtime = DateTime.Now.ToString("H:mm").Split(":");
             int h = Convert.ToInt32(Splittedtime[0]);
             int mm = Convert.ToInt32(Splittedtime[1]);
             foreach (Zug z in depot.Züge)
@@ -410,6 +410,27 @@ namespace Tschuuuuu_tschu
         //Methoden public
         public List<Bahnhof[]> DisplayDepot(List<Bahnhof[]> Karte)
         {
+            string DepotBild = @"            ▓▓▒▒▒▒▒▒        ▓▓▒▒▒▒▒▒▒▒      ▓▓▒▒▒▒▒▒▒▒        ▓▓▒▒▒▒▒▒      ▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒   
+            ▓▓▒▒ ▓▓▒▒▒      ▓▓▒▒            ▓▓▒▒   ▓▓▒▒▒     ▓▓▒▒  ▓▓▒▒     ▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒        
+            ▓▓▒▒  ▓▓▒▒      ▓▓▒▒            ▓▓▒▒   ▓▓▒▒▒    ▓▓▒▒    ▓▓▒▒           ▓▓▒▒
+            ▓▓▒▒   ▓▓▒▒     ▓▓▒▒▒▒▒▒        ▓▓▒▒▒▒▒▒▒▒      ▓▓▒▒    ▓▓▒▒           ▓▓▒▒
+            ▓▓▒▒   ▓▓▒▒     ▓▓▒▒            ▓▓▒▒            ▓▓▒▒    ▓▓▒▒           ▓▓▒▒
+            ▓▓▒▒  ▓▓▒▒      ▓▓▒▒            ▓▓▒▒            ▓▓▒▒    ▓▓▒▒           ▓▓▒▒
+            ▓▓▒▒ ▓▓▒▒▒      ▓▓▒▒            ▓▓▒▒             ▓▓▒▒  ▓▓▒▒            ▓▓▒▒
+            ▓▓▒▒▒▒▒▒        ▓▓▒▒▒▒▒▒▒▒      ▓▓▒▒              ▓▓▒▒▒▒▒▒             ▓▓▒▒
+
+                        ▓▓▒▒▒▒▒
+                       ▓▓▒▒▒
+                      ====          --=========================--
+                      |  |     ====   |]||[]|   [___]   |[]||[|
+                    >_|  |_----|  |---| ||  |   DEPOT   |  || |-----------______<
+                  |_|    ==   ==___== | ||__| =   =   = |__|| | ==___==   ==    |_|
+                [=|_|__| *_/__\_(o)_/__\__/_ \ |_|=|_| / _\__/__\_(o)_/__\_* | ||_|=]
+                   / (*)   \__/ ~~~ \__/  \__/   _=_   \__/  \__/ ~~~ \__/   (*) \
+===========================================================================================================";
+            
+            
+            
             Console.Clear();
             //Checkt, ob Depot Leer ist
             if(Spieler_Depot.Züge.Count == 0)
@@ -426,7 +447,7 @@ namespace Tschuuuuu_tschu
             }
             MenüLen[Spieler_Depot.Züge.Count] = "Zug Erstellen";
             MenüLen[Spieler_Depot.Züge.Count+1] = "Exit";
-            var DepotMenü = new Menü("Wähle den Zug aus, welchen du Konfigurieren / Ansehen willst.",MenüLen);
+            var DepotMenü = new Menü(DepotBild+"\nWähle den Zug aus, welchen du Konfigurieren / Ansehen willst.",MenüLen);
             int AuswahlZug = 0;
             do
             {
@@ -516,10 +537,11 @@ namespace Tschuuuuu_tschu
                                             }
                                             else if(!g.Befahren && Spieler_Depot.Züge[AuswahlZug].Zug_Zugtyp.Zugtype == g.ErlaubterZugtyp)
                                             {
+                                                int Fahrzeit = (k + z) * 10 / 2;
+                                                Spieler_Depot.Züge[AuswahlZug].Fahren(Karte[k][z], Fahrzeit);
                                                 g.GleisZug = Spieler_Depot.Züge[AuswahlZug];
                                                 Zugindikator++;
-                                                int Fahrzeit = (k + z) * 10 /2; 
-                                                Spieler_Depot.Züge[AuswahlZug].Fahren(Karte[k][z],Fahrzeit);
+                                                
                                                 g.Befahren = true;
 
                                                 
@@ -570,11 +592,22 @@ namespace Tschuuuuu_tschu
         }
         public void DisplayInventar()
         {
+            string BildInventar = @"▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▓▒▒▒▒▒▒▓  ▓▓▒▒                                                     ▓▓▒▒
+▓▓▒▒▓▓▓▓▓▓▓▓▓▓▒▒▓▓▒▓▒▒▒▒▓▒  ▓▓▒▒                                                     ▓▓▒▒
+▓▓▓▓▒▒▓▓▓▓▓▓▒▒▓▓▓▓▒▒▓▒▒▓▒▒  ▓▓▒▒                                                     ▓▓▒▒
+▓▓▓▓▓▓▒▒▓▓▒▒▓▓▓▓▓▓▒▒▒▓▓▒▒▒  ▓▓▒▒                                                   ▓▓▓▓▓▓▒▒
+▓▓▓▓▓▓▓▓▒▒▓▓▓▓▓▓▓▓▒▒▒▓▓▒▒▒  ▓▓▒▒  ▓▓▒▓▓▓▓▓▒▒  ▓▓▒▒    ▓▓▒▒  ▓▓▓▓▓▓▓▒▒   ▓▓▒▓▓▓▓▓▒▒   ▓▓▒▒     ▓▓▓▓▓▓▒▒    ▓▓▒▓▓▓▒▒
+▓▓▓▓▓▓▒▒▓▓▒▒▓▓▓▓▓▓▒▒▒▓▓▒▒▒  ▓▓▒▒  ▓▓▓▓▒▒ ▓▓▒▒  ▓▓▒▒  ▓▓▒▒  ▓▓▒▒   ▓▓▒▒  ▓▓▓▓▒▒ ▓▓▒▒  ▓▓▒▒    ▓▓▒▒  ▓▓▒▒   ▓▓▓▒▒▓▓▒▒
+▓▓▓▓▒▒▓▓▓▓▓▓▒▒▓▓▓▓▒▒▓▒▒▓▒▒  ▓▓▒▒  ▓▓▒▒   ▓▓▒▒   ▓▓▒▒▓▓▒▒   ▓▓▓▓▓▓▓▓▒▒   ▓▓▒▒   ▓▓▒▒  ▓▓▒▒    ▓▓▒▒  ▓▓▒▒   ▓▓▒▒
+▓▓▒▒▓▓▓▓▓▓▓▓▓▓▒▒▓▓▒▓▒▒▒▒▓▒  ▓▓▒▒  ▓▓▒▒   ▓▓▒▒    ▓▓▓▓▒▒    ▓▓▒▒         ▓▓▒▒   ▓▓▒▒  ▓▓▒▒    ▓▓▒▒  ▓▓▓▒▒  ▓▓▒▒
+▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▓▒▒▒▒▒▒▓  ▓▓▒▒  ▓▓▒▒   ▓▓▒▒     ▓▓▒▒      ▓▓▓▓▓▓▓▒▒   ▓▓▒▒   ▓▓▒▒   ▓▓▓▓▒▒  ▓▓▓▓▓▓▒▓▓▒▒ ▓▓▒▒";
+            
+            
             int Auswahl = 0, Auswahl1 = 0;
             var AlleNamenTeile = new string[Spieler_Zugteile.Count + 1];
             AlleNamenTeile[Spieler_Zugteile.Count] = "Exit";
             var AuswahlMöglichkeiten = new string[] { "Alle", "Motoren", "Wagons", "Zugtypen", "Exit" };
-            var InventarMenü = new Menü("Nach was willst du Suchen", AuswahlMöglichkeiten);
+            var InventarMenü = new Menü(BildInventar+"\nNach was willst du Suchen", AuswahlMöglichkeiten);
             while(Auswahl != 4)
             {
                 var Zugteile = new List<Zugteile>();

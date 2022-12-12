@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Shop xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Motoren>
+    <Motor>
+      <Preis>0</Preis>
+      <Name>Verkauft!</Name>
+      <Leistung>0</Leistung>
+      <Geschwindigkeit>0</Geschwindigkeit>
+    </Motor>
+    <Motor>
+      <Preis>432</Preis>
+      <Name>V6 Motor</Name>
+      <Leistung>196</Leistung>
+      <Geschwindigkeit>0</Geschwindigkeit>
+    </Motor>
+  </Motoren>
+  <Zugtypen>
+    <Zugtyp>
+      <Preis>452</Preis>
+      <Name>Dampflock</Name>
+      <Zugtype>Dampf</Zugtype>
+      <Sprite>                    _,-'`-._           _,-'```-._                 
+                    `-.___,-'. .-.-.-. .`-.___,-'
+      ====          --=========================--
+      |  |            |]||[]|   [___]   |[]||[|
+    &gt;_|  |_-----------| ||  |   07802   |  || |-----------______&lt;
+  |_|    ==   ==___== | ||__| =   =   = |__|| | ==___==   ==    |_|
+ &gt;|_|-------__(-)-(-)__--|__|-----------|__|--__(-)-(-)__-------|_|&lt;
+[=|_|__| *_/__\_(o)_/__\__/_ \ |_|=|_| / _\__/__\_(o)_/__\_* | ||_|=]
+   / (*)   \__/ ~~~ \__/  \__/   _=_   \__/  \__/ ~~~ \__/   (*) \
+</Sprite>
+    </Zugtyp>
+    <Zugtyp>
+      <Preis>571</Preis>
+      <Name>Diesellock</Name>
+      <Zugtype>Diesel</Zugtype>
+      <Sprite>                                                        \  /
+                  __                                     \/
+     _   ---===##===---_________________________--------------  _
+    [ ~~~=================###=###=###=###=###=================~~ ]
+    /  ||  | |~\  ;;;;     PKP    ;;;  ET22-689  ;;;;  /~| |  ||  \
+   /___||__| |  \ ;;;;            [_]            ;;;; /  | |__||___\
+   [\        |__| ;;;;  ;;;; ;;;; ;;; ;;;; ;;;;  ;;;; |__|        /]
+  (=|    ____[-]_______________________________________[-]____Kraq|=)
+  /  /___/|#(__)=o########o=(__)#||___|#(__)=o#########o=(__)#|\___\
+ _________-=\__/=--=\__/=--=\__/=-_____-=\__/=--=\__/=--=\__/=-______
+</Sprite>
+    </Zugtyp>
+  </Zugtypen>
+  <Wagons>
+    <Wagon xsi:type="Bistrowagon">
+      <Preis>247</Preis>
+      <Name>Bistrowagon</Name>
+      <Bonus>98</Bonus>
+    </Wagon>
+    <Wagon xsi:type="Bistrowagon">
+      <Preis>226</Preis>
+      <Name>Bistrowagon</Name>
+      <Bonus>30</Bonus>
+    </Wagon>
+  </Wagons>
+  <OldshopTime>15</OldshopTime>
+</Shop>

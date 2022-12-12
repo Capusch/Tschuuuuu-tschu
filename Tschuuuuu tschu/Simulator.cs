@@ -10,6 +10,7 @@ namespace Tschuuuuu_tschu
     {
         private Spieler Spieler1;
         private List<Bahnhof[]> karte;
+        private Shop shop;
 
         //public List<Bahnhof[]> Karte { get { return karte; } }
 
@@ -56,16 +57,27 @@ namespace Tschuuuuu_tschu
 
         public void Start()
         {
+            object o2;
+            XmlSerializer serializer2 = new XmlSerializer(typeof(Shop));
+            using (StreamReader reader = new StreamReader(@"..\..\..\Shop.xml"))
+            {
+                o2 = serializer2.Deserialize(reader);
+            }
+            shop = (Shop)o2;
+
+
+
+
 
             object o;
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Bahnhof[]>));
+            XmlSerializer serializer1 = new XmlSerializer(typeof(List<Bahnhof[]>));
             using (StreamReader reader = new StreamReader(@"..\..\..\Karte.xml"))
             {
-                 o = serializer.Deserialize(reader);
+                 o = serializer1.Deserialize(reader);
             }karte = (List<Bahnhof[]>)o;
 
-            
-            Spieler1 = (Spieler)LoadPlayer();
+
+            SavePlayer(TestingSpieler());
             //Laden des Spielstandes
             Spieler1 = new Spieler();
             if (!File.Exists(@"..\..\..\Spieler.xml")){
@@ -75,10 +87,60 @@ namespace Tschuuuuu_tschu
             }
             else {                
                 Spieler1 = (Spieler)LoadPlayer();
-                
+                Spieler1.Münzen = 100000;
 
             }
+
             ;
+
+
+            string Tschutschu = @"    ▓▓▓▓▓▓▓▓▓▓▓▓▓               ▓▓                       ▓▓▓▓▓▓▓▓▓▓▓▓▓               ▓▓  
+         ▓▓                     ▓▓                            ▓▓                     ▓▓  
+         ▓▓      ▓▓▓▓     ▓▓▓   ▓▓                            ▓▓      ▓▓▓▓     ▓▓▓   ▓▓
+         ▓▓     ▓▓       ▓▓     ▓▓ ▓▓▓     ▓▓    ▓▓           ▓▓     ▓▓       ▓▓     ▓▓ ▓▓▓     ▓▓    ▓▓
+         ▓▓      ▓▓▓    ▓▓      ▓▓▓   ▓▓   ▓▓    ▓▓           ▓▓      ▓▓▓    ▓▓      ▓▓▓   ▓▓   ▓▓    ▓▓
+         ▓▓        ▓▓    ▓▓     ▓▓    ▓▓   ▓▓    ▓▓           ▓▓        ▓▓    ▓▓     ▓▓    ▓▓   ▓▓    ▓▓
+         ▓▓     ▓▓▓▓      ▓▓▓   ▓▓    ▓▓     ▓▓▓▓             ▓▓     ▓▓▓▓      ▓▓▓   ▓▓    ▓▓     ▓▓▓▓ 
+                
+                
+                                                 Simulator
+                      (0<   <0)
+_____________________/( )___( )\____________________________________________________________________________
+                     \ ``     ``/              /'   `\                /'   `\
+                                              Y.     .Y              Y.     .Y
+                                    _______    \`. .'/                \`. .'/
+                     ,-------------'=======`--````-````---. .--------````-````-`=======`----------.
+---------. .-- __,=+'-------------------------------------| |---------___________________---------|--------.
+=========| |.-/__|_]_]  :`/:``````````````````````````````| |```:`/:``[_[_[_[_[_]_]_]_]_]`:`/:````|========|
+_________,-'__________[];/_;_____________________T T S____| |___:/_:______________________:/_:____|________|
+_______,`.../_|___________________________________________| |_____________________________________|________|
+---.  (_>        ,-------.                     ,-------.  |=|   ,-------.             ,-------.   |---.    |
+`(_)`._`-._____.'(_)`='(_)\_7___7___7___7__7_.'(_)`='(_)\_/ \_.`(_)`=`(_)\_7___7___7_/(_)`=`(_)`._/`(_)`.__/
+============================================================================================================";
+
+
+
+
+            
+            //Hauptmenü
+            var StEn = new string[] { "Starten", "Beenden" };
+            var Hauptmenü = new Menü(Tschutschu,StEn);
+            int Start = 1; 
+            do
+            {
+                Start = Hauptmenü.Run();
+                if(Start == 0)
+                {
+                    //Spiel wird geladen
+                    SpielstandLaden(Spieler1);
+                }
+            } while (Start == 0);
+            {
+
+            }
+        }
+        private void SpielstandLaden(Spieler _spieler)
+        {
             string Thomas = @"                    ▓▓▓▓▓▓                                                                                                                     
                   ▓▓▓▓▓▓▓▓▓▓                  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                                                                                          
                     ▓▓▓▓▓▓                  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                                                                                        
@@ -111,33 +173,12 @@ namespace Tschuuuuu_tschu
 ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓        ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒                                                  
                 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓        ▒▒▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒                                                
                                 ▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      ▒▒▒▒▒▒▒▒▒        ▒▒▒▒▒▒▒        ▒▒                                                  
-                                  ▒▒▒▒▒▒  ▒▒▒▒▒▒  ▒▒▒▒▒▒  ▒▒▒▒▒▒  ▒▒▒▒▒▒  ▒▒▒▒▒▒          ▒▒▒              ▒▒                                                               
-                                                                                                                                                                            
-                                                                                                                                                                            
-                                                                                                                              
-      
+                                  ▒▒▒▒▒▒  ▒▒▒▒▒▒  ▒▒▒▒▒▒  ▒▒▒▒▒▒  ▒▒▒▒▒▒  ▒▒▒▒▒▒          ▒▒▒              ▒▒                                                                    
 ";
-            //Hauptmenü
-            var StEn = new string[] { "Starten", "Beenden" };
-            var Hauptmenü = new Menü(Thomas,StEn);
-            int Start = 1; 
-            do
-            {
-                Start = Hauptmenü.Run();
-                if(Start == 0)
-                {
-                    //Spiel wird geladen
-                    SpielstandLaden(Spieler1);
-                }
-            } while (Start == 0);
-            {
 
-            }
-        }
-        private void SpielstandLaden(Spieler _spieler)
-        {
+
             var StEn = new string[] { "Depot", "Inventar","Shop","Karte","Exit" };
-            var SpielerHauptmenü = new Menü("Menü", StEn);
+            var SpielerHauptmenü = new Menü(Thomas+"\nHauptMenü / Wähle aus", StEn);
             int Spielen = 0;
             do
             {
@@ -158,7 +199,14 @@ namespace Tschuuuuu_tschu
                         _spieler.DisplayInventar();
                         break;
                     case 2:
+                        
+                        Spieler1 = shop.DisplayShop(Spieler1);
 
+                        XmlSerializer serializer3 = new XmlSerializer(typeof(Shop));
+                        using (StreamWriter writer = new StreamWriter(@"..\..\..\Shop.xml"))
+                        {
+                            serializer3.Serialize(writer, shop);
+                        }
                         break;
                     case 3:
                         var KartenNamen = new string[8];

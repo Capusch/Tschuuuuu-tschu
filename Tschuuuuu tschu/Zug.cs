@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Tschuuuuu_tschu
 {
@@ -58,6 +59,7 @@ namespace Tschuuuuu_tschu
 
         public int DisplayVerdienst()
         {
+            Random r = new Random();
             string[] FahrzeitSplit = fahrzeit.Split(":");
             
             Bistrowagon bw = new Bistrowagon();
@@ -85,7 +87,18 @@ namespace Tschuuuuu_tschu
             }
             foreach (Güterwagon g in gw)
             {
-                mp += 50;
+                switch (g.Güter)
+                {
+                    case "Kohle":
+                        mp += r.Next(50,100);
+                        break;
+                    case "Gas":
+                        mp += r.Next(100, 150);
+                        break;
+                    case "Teddy":
+                        mp += r.Next(200,250);
+                        break;
+                }
             }
             mp = (mp * bw.Bonus)/ 100;
             mp = (mp * Convert.ToInt32(FahrzeitSplit[2]) * 2) / 10; 
@@ -98,7 +111,7 @@ namespace Tschuuuuu_tschu
             nameBahnhoffahrt = _b.Name;
             string Fahrtfertig;
 
-            string Date = DateTime.Now.ToString("h:mm");
+            string Date = DateTime.Now.ToString("H:mm");
             Console.WriteLine(Date);
             string[] date = Date.Split(":");
             int a = Convert.ToInt32(date[1]);
@@ -115,7 +128,7 @@ namespace Tschuuuuu_tschu
             if (a < 10)
             {
                 string string_a = "0" + Convert.ToString(a);
-                Fahrtfertig = Convert.ToString(b) + ":" + string_a;
+                Fahrtfertig = Convert.ToString(b) + ":" + string_a+ ":" + Convert.ToString(Fahrzeit);
             }
             else
             {

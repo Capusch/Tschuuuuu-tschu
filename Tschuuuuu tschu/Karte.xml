@@ -13,16 +13,95 @@
     <Bahnhof>
       <BahnhofGleise>
         <Gleis>
+          <GleisZug>
+            <Name>Megabahn</Name>
+            <Zug_Wagons>
+              <Wagon xsi:type="Güterwagon">
+                <Preis>100</Preis>
+                <Name>Kohlewagon</Name>
+              </Wagon>
+              <Wagon xsi:type="Bistrowagon">
+                <Preis>22</Preis>
+                <Name>Bistro</Name>
+                <Bonus>50</Bonus>
+              </Wagon>
+            </Zug_Wagons>
+            <Zug_Motor>
+              <Preis>200</Preis>
+              <Name>V6</Name>
+              <Leistung>100</Leistung>
+              <Geschwindigkeit>0</Geschwindigkeit>
+            </Zug_Motor>
+            <Zug_Zugtyp>
+              <Preis>200</Preis>
+              <Name>Dampflock</Name>
+              <Zugtype>Dampf</Zugtype>
+              <Sprite>                    _,-'`-._           _,-'```-._                 
+                    `-.___,-'. .-.-.-. .`-.___,-'
+      ====          --=========================--
+      |  |            |]||[]|   [___]   |[]||[|
+    &gt;_|  |_-----------| ||  |   07802   |  || |-----------______&lt;
+  |_|    ==   ==___== | ||__| =   =   = |__|| | ==___==   ==    |_|
+ &gt;|_|-------__(-)-(-)__--|__|-----------|__|--__(-)-(-)__-------|_|&lt;
+[=|_|__| *_/__\_(o)_/__\__/_ \ |_|=|_| / _\__/__\_(o)_/__\_* | ||_|=]
+   / (*)   \__/ ~~~ \__/  \__/   _=_   \__/  \__/ ~~~ \__/   (*) \
+</Sprite>
+            </Zug_Zugtyp>
+            <Amfahren>true</Amfahren>
+            <Fahrzeit>15:22:5</Fahrzeit>
+            <NameBahnhoffahrt>Mörfelden-Bahnhof</NameBahnhoffahrt>
+          </GleisZug>
           <ErlaubterZugtyp>Dampf</ErlaubterZugtyp>
-          <Befahren>false</Befahren>
+          <Befahren>true</Befahren>
         </Gleis>
         <Gleis>
           <ErlaubterZugtyp>Diesel</ErlaubterZugtyp>
           <Befahren>false</Befahren>
         </Gleis>
         <Gleis>
+          <GleisZug>
+            <Name>Superbahn</Name>
+            <Zug_Wagons>
+              <Wagon xsi:type="Güterwagon">
+                <Preis>100</Preis>
+                <Name>Kohlewagon</Name>
+              </Wagon>
+              <Wagon xsi:type="Personwagen">
+                <Preis>2</Preis>
+                <Name>Persona</Name>
+                <MaxPersonen>0</MaxPersonen>
+                <Personenanzahl>0</Personenanzahl>
+              </Wagon>
+            </Zug_Wagons>
+            <Zug_Motor>
+              <Preis>300</Preis>
+              <Name>V8</Name>
+              <Leistung>300</Leistung>
+              <Geschwindigkeit>0</Geschwindigkeit>
+            </Zug_Motor>
+            <Zug_Zugtyp>
+              <Preis>500</Preis>
+              <Name>Elektrolock</Name>
+              <Zugtype>Elektro</Zugtype>
+              <Sprite>                                          __   __
+                                          /'   `\
+                                         Y.     .Y
+                               _______    \`. .'/
+                ,-------------'=======--```` - ````-- -.
+           __,= +'-------------------------------------|p
+      .-/ __ | _]_]  :`/:°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°|'
+   ,-'__________[];/_;_____________________T G V_______|
+ ,`.../_|______________________________________________|
+(_ &gt;        , -------.                     , -------.  |
+ `-._____.`(_)`=`(_)\_7___7___7___7__7_.`(_)`=`(_)\_ /
+</Sprite>
+            </Zug_Zugtyp>
+            <Amfahren>true</Amfahren>
+            <Fahrzeit>15:12:5</Fahrzeit>
+            <NameBahnhoffahrt>Mörfelden-Bahnhof</NameBahnhoffahrt>
+          </GleisZug>
           <ErlaubterZugtyp>Elektro</ErlaubterZugtyp>
-          <Befahren>false</Befahren>
+          <Befahren>true</Befahren>
         </Gleis>
       </BahnhofGleise>
       <Name>Mörfelden-Bahnhof</Name>
